@@ -14,19 +14,19 @@ function App() {
 
   const submitCreateForm = (event) => {
     event.preventDefault();
-    const taskname = event.target.input.value;
-    if (taskname.length < 3) {
+    const input = event.target.children[0];
+    if (input.value.length < 3) {
       alert("The task should be at least 3 characters long");
       return;
     }
     const newTask = {
       id: lastId,
-      name: taskname,
+      name: input.value,
       completed: false,
     };
     setTasks([...tasks, newTask]);
     setLastId(lastId + 1);
-    event.target.input.value = "";
+    input.value = "";
   };
 
   const completeTask = (id) => {
@@ -40,17 +40,13 @@ function App() {
         <h1 className="main__title">Todos</h1>
 
         <section className="main__section">
-          {tasks
-            ? tasks
-                .filter((task) => !task.completed)
-                .map((task) => (
-                  <Task
-                    task={task}
-                    onCheck={() => completeTask(task.id)}
-                    key={task.id}
-                  />
-                ))
-            : null}
+          {tasks.filter((task) => !task.completed).map((task) => (
+            <Task
+              task={task}
+              onCheck={() => completeTask(task.id)}
+              key={task.id}
+            />
+          ))}
         </section>
 
         <section className="main__section">

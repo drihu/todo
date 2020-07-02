@@ -10,7 +10,7 @@ export default function Task({ task, onCheck }) {
       <img
         src={image}
         className="task__checkbox"
-        alt="task-radio"
+        alt={task.completed ? 'completed' : 'uncompleted'}
         onMouseEnter={() => setImage(checkedCheckbox)}
         onMouseLeave={() => setImage(checkbox)}
         onClick={onCheck}

@@ -36,7 +36,6 @@ html {
 .show-completed-button-container {
   display: flex;
   flex-direction: row-reverse;
-  margin-bottom: 45px;
 }
 /* AddTaskButton */
 .add-task-button {
