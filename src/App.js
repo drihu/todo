@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import logo from "./images/todoisnt-logo.png";
 import plus from "./images/icons/plus.svg";
 import checkbox from "./images/icons/checkbox.svg";
+import checkedCheckbox from "./images/icons/checkbox-checked.svg";
 import "./index.css";
 import "./App.css";
 
@@ -33,17 +34,27 @@ function CreateForm({ onSubmit, onCancel, placeholder }) {
   );
 }
 
-function Task({ task }) {
+function Task({ task, onCheck }) {
+  const [image, setImage] = useState(checkbox);
+
   return (
     <article className="task">
-      <img src={checkbox} className="task__checkbox" alt="task-radio" />
-      {task}
+      <img
+        src={image}
+        className="task__checkbox"
+        alt="task-radio"
+        onMouseEnter={() => setImage(checkedCheckbox)}
+        onMouseLeave={() => setImage(checkbox)}
+        onClick={onCheck}
+      />
+      {task.name}
     </article>
   );
 }
 
 function App() {
   const [isCreateFormActive, setIsCreateFormActive] = useState(false);
+  const [lastId, setLastId] = useState(1);
   const [tasks, setTasks] = useState([]);
 
   const submitCreateForm = (event) => {
@@ -53,8 +64,18 @@ function App() {
       alert("The task should be at least 3 characters long");
       return;
     }
-    setTasks([...tasks, taskname]);
+    const newTask = {
+      id: lastId,
+      name: taskname,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+    setLastId(lastId + 1);
     event.target.input.value = "";
+  };
+
+  const completeTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   return (
@@ -68,7 +89,15 @@ function App() {
 
         <section className="main__section">
           {tasks
-            ? tasks.map((task, index) => <Task task={task} key={index} />)
+            ? tasks
+                .filter((task) => !task.completed)
+                .map((task) => (
+                  <Task
+                    task={task}
+                    onCheck={() => completeTask(task.id)}
+                    key={task.id}
+                  />
+                ))
             : null}
         </section>
 
