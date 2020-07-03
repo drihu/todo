@@ -114,7 +114,14 @@ function App() {
           {areCompletedTasksActive &&
             tasks
               .filter((task) => task.completed)
-              .map((task) => <Task task={task} key={task.id} />)}
+              .map((task) => (
+                <Task
+                  task={task}
+                  onUpdate={(event) => updateTask(event, task.id)}
+                  onDelete={(event) => deleteTask(event, task.id)}
+                  key={task.id}
+                />
+              ))}
         </footer>
       </main>
     </div>
