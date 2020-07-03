@@ -42,6 +42,18 @@ function App() {
     setTasks(newTasks);
   };
 
+  const uncompleteTask = (id) => {
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+    const newTask = { ...tasks[taskIndex] };
+    newTask.completed = false;
+    const newTasks = [
+      ...tasks.slice(0, taskIndex),
+      newTask,
+      ...tasks.slice(taskIndex + 1),
+    ];
+    setTasks(newTasks);
+  };
+
   const updateTask = (event, id) => {
     event.preventDefault();
     const input = event.target.elements["input"];
@@ -117,6 +129,7 @@ function App() {
               .map((task) => (
                 <Task
                   task={task}
+                  onCheck={() => uncompleteTask(task.id)}
                   onUpdate={(event) => updateTask(event, task.id)}
                   onDelete={(event) => deleteTask(event, task.id)}
                   key={task.id}
