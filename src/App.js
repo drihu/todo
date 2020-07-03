@@ -7,10 +7,11 @@ import ActionButton from "./components/ActionButton";
 import "./index.css";
 import "./App.css";
 
+let previousId = 0;
+
 function App() {
   const [isCreateFormActive, setIsCreateFormActive] = useState(false);
   const [areCompletedTasksActive, setAreCompletedTasksActive] = useState(false);
-  const [lastId, setLastId] = useState(1);
   const [tasks, setTasks] = useState([]);
 
   const createTask = (event) => {
@@ -21,12 +22,11 @@ function App() {
       return;
     }
     const newTask = {
-      id: lastId,
+      id: ++previousId,
       name: input.value,
       completed: false,
     };
     setTasks([...tasks, newTask]);
-    setLastId(lastId + 1);
     input.value = "";
   };
 
