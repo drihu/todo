@@ -30,12 +30,15 @@ html {
   font-weight: 700;
   line-height: 22px;
 }
-.main__section {
-  margin-bottom: 20px;
+.main__tasks {
+  margin-bottom: 15px;
 }
-.show-completed-button-container {
+.main__form-container {
+  margin-bottom: 45px;
+}
+.main__completed-tasks {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
 }
 /* AddTaskButton */
 .add-task-button {
@@ -85,19 +88,26 @@ html {
 .task {
   display: flex;
   align-items: center;
+  width: 100%;
   padding: 15px;
   border-bottom: 1px solid #aaaaaa;
   color: #2D3748;
   font-size: 17px;
   line-height: 24px;
 }
+.task.task--completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
 .task__checkbox {
   width: 20px;
   height: 20px;
   margin-right: 12px;
 }
-/* ShowCompletedButton */
-.show-completed-button {
+/* ActionButton */
+.action-button {
+  align-self: flex-end;
+  margin-bottom: 15px;
   padding: 8px 15px;
   background: #ffffff;
   border: 1px solid #cccccc;

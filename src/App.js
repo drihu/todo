@@ -3,18 +3,19 @@ import Header from "./components/Header";
 import AddTaskButton from "./components/AddTaskButton";
 import CreateForm from "./components/CreateForm";
 import Task from "./components/Task";
-import ShowCompletedButton from "./components/ShowCompletedButton";
+import ActionButton from "./components/ActionButton";
 import "./index.css";
 import "./App.css";
 
 function App() {
   const [isCreateFormActive, setIsCreateFormActive] = useState(false);
+  const [areCompletedTasksActive, setAreCompletedTasksActive] = useState(false);
   const [lastId, setLastId] = useState(1);
   const [tasks, setTasks] = useState([]);
 
   const submitCreateForm = (event) => {
     event.preventDefault();
-    const input = event.target.children[0];
+    const input = event.target.elements["input"];
     if (input.value.length < 3) {
       alert("The task should be at least 3 characters long");
       return;
@@ -30,7 +31,19 @@ function App() {
   };
 
   const completeTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+    const newTask = { ...tasks[taskIndex] };
+    newTask.completed = true;
+    const newTasks = [
+      ...tasks.slice(0, taskIndex),
+      newTask,
+      ...tasks.slice(taskIndex + 1),
+    ];
+    setTasks(newTasks);
+  };
+
+  const showOrHideCompletedTasks = () => {
+    setAreCompletedTasksActive(!areCompletedTasksActive);
   };
 
   return (
@@ -39,17 +52,19 @@ function App() {
       <main className="main">
         <h1 className="main__title">Todos</h1>
 
-        <section className="main__section">
-          {tasks.filter((task) => !task.completed).map((task) => (
-            <Task
-              task={task}
-              onCheck={() => completeTask(task.id)}
-              key={task.id}
-            />
-          ))}
+        <section className="main__tasks">
+          {tasks
+            .filter((task) => !task.completed)
+            .map((task) => (
+              <Task
+                task={task}
+                onCheck={() => completeTask(task.id)}
+                key={task.id}
+              />
+            ))}
         </section>
 
-        <section className="main__section">
+        <section className="main__form-container">
           {!isCreateFormActive ? (
             <AddTaskButton onClick={() => setIsCreateFormActive(true)} />
           ) : (
@@ -61,9 +76,17 @@ function App() {
           )}
         </section>
 
-        <section className="main__section show-completed-button-container">
-          <ShowCompletedButton />
-        </section>
+        <footer className="main__completed-tasks">
+          <ActionButton
+            onClick={showOrHideCompletedTasks}
+            values={["Show completed", "Hide"]}
+            className="action-button"
+          />
+          {areCompletedTasksActive &&
+            tasks
+              .filter((task) => task.completed)
+              .map((task) => <Task task={task} key={task.id} />)}
+        </footer>
       </main>
     </div>
   );
