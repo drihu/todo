@@ -13,7 +13,7 @@ function App() {
   const [lastId, setLastId] = useState(1);
   const [tasks, setTasks] = useState([]);
 
-  const submitCreateForm = (event) => {
+  const createTask = (event) => {
     event.preventDefault();
     const input = event.target.elements["input"];
     if (input.value.length < 3) {
@@ -42,6 +42,33 @@ function App() {
     setTasks(newTasks);
   };
 
+  const updateTask = (event, id) => {
+    event.preventDefault();
+    const input = event.target.elements["input"];
+    if (input.value.length < 3) {
+      alert("The task should be at least 3 characters long");
+      return;
+    }
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+    const newTask = { ...tasks[taskIndex] };
+    newTask.name = input.value;
+    const newTasks = [
+      ...tasks.slice(0, taskIndex),
+      newTask,
+      ...tasks.slice(taskIndex + 1),
+    ];
+    setTasks(newTasks);
+  };
+
+  const deleteTask = (event, id) => {
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+    const newTasks = [
+      ...tasks.slice(0, taskIndex),
+      ...tasks.slice(taskIndex + 1),
+    ];
+    setTasks(newTasks);
+  };
+
   const showOrHideCompletedTasks = () => {
     setAreCompletedTasksActive(!areCompletedTasksActive);
   };
@@ -59,6 +86,8 @@ function App() {
               <Task
                 task={task}
                 onCheck={() => completeTask(task.id)}
+                onUpdate={(event) => updateTask(event, task.id)}
+                onDelete={(event) => deleteTask(event, task.id)}
                 key={task.id}
               />
             ))}
@@ -69,7 +98,7 @@ function App() {
             <AddTaskButton onClick={() => setIsCreateFormActive(true)} />
           ) : (
             <CreateForm
-              onSubmit={submitCreateForm}
+              onCreate={createTask}
               onCancel={() => setIsCreateFormActive(false)}
               placeholder={"Write a todo..."}
             />

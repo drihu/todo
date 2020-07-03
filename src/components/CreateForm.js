@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function CreateForm({ onSubmit, onCancel, placeholder }) {
+export default function CreateForm({ onCreate, onCancel, placeholder }) {
   return (
-    <form onSubmit={onSubmit} className="create-form" noValidate>
+    <form onSubmit={onCreate} className="create-form" noValidate>
       <input
         className="create-form__input"
         type="text"
@@ -10,12 +10,14 @@ export default function CreateForm({ onSubmit, onCancel, placeholder }) {
         placeholder={placeholder}
         autoComplete="off"
       />
-      <button type="submit" className="create-form__add-button">
-        Add
-      </button>
-      <button onClick={onCancel} className="create-form__cancel-button">
-        Cancel
-      </button>
+      <div className="create-form__buttons">
+        <button type="submit" className="create-form__add-button">
+          Add
+        </button>
+        <button onClick={onCancel} className="create-form__cancel-button">
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }
