@@ -22,16 +22,21 @@ const COLORS = [
 ];
 
 let previousTaskId = 0;
-let previousProjectId = 0;
+let previousProjectId = 1;
 
 function App() {
   const [isCreateFormActive, setIsCreateFormActive] = useState(false);
   const [areCompletedTasksActive, setAreCompletedTasksActive] = useState(false);
   const [isCreateProjectShown, setIsCreateProjectShown] = useState(false);
   const [areProjectsShown, setAreProjectsShown] = useState(false);
-  const [activeProjectId, setActiveProjectId] = useState(null);
+  const [activeProjectId, setActiveProjectId] = useState(1);
   const [tasks, setTasks] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([
+    {
+      id: activeProjectId,
+      name: "Default",
+    },
+  ]);
 
   const createTask = (event) => {
     event.preventDefault();
@@ -160,7 +165,11 @@ function App() {
         </aside>
 
         <main className="app__main">
-          <h1 className="main__title">Todos</h1>
+          <h1 className="main__title">
+            {activeProjectId === 1
+              ? "Todos"
+              : projects.find((project) => project.id === activeProjectId).name}
+          </h1>
 
           <section className="main__tasks">
             {tasks
