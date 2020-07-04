@@ -12,14 +12,25 @@ import bottom from "./images/icons/arrow-bottom.svg";
 import "./index.css";
 import "./App.css";
 
-let previousId = 0;
+const COLORS = [
+  '#1A202C',
+  '#68D391',
+  '#F6E05E',
+  '#B04632',
+  '#CD5A90',
+  '#0079BF',
+];
+
+let previousTaskId = 0;
+let previousProjectId = 0;
 
 function App() {
   const [isCreateFormActive, setIsCreateFormActive] = useState(false);
   const [areCompletedTasksActive, setAreCompletedTasksActive] = useState(false);
+  const [isCreateProjectShown, setIsCreateProjectShown] = useState(false);
   const [areProjectsShown, setAreProjectsShown] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [projects] = useState([
+  const [projects, setProjects] = useState([
     { id: 1, name: "hello" },
     { id: 2, name: "world" },
   ]);
@@ -32,7 +43,7 @@ function App() {
       return;
     }
     const newTask = {
-      id: ++previousId,
+      id: ++previousTaskId,
       name: input.value,
       completed: false,
     };
@@ -95,6 +106,18 @@ function App() {
     setAreCompletedTasksActive(!areCompletedTasksActive);
   };
 
+  const createProject = (event) => {
+    event.preventDefault();
+    const input = event.target.elements["input"];
+    const newProject = {
+      id: ++previousProjectId,
+      name: input.value,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    };
+    setProjects([...projects, newProject]);
+    input.value = "";
+  }
+
   return (
     <div className="app">
       <Header />
@@ -111,7 +134,20 @@ function App() {
               {projects.map((project) => (
                 <Project project={project} key={project.id} />
               ))}
-              <PlusButton value="Create project" />
+              {isCreateProjectShown ? (
+                <div style={{ paddingLeft: '20px' }}>
+                  <CreateForm
+                    onCreate={createProject}
+                    onCancel={() => setIsCreateProjectShown(false)}
+                    placeholder="Project name"
+                  />
+                </div>
+              ) : (
+                <PlusButton
+                  value="Create project"
+                  onClick={() => setIsCreateProjectShown(true)}
+                />
+              )}
             </>
           )}
         </aside>
