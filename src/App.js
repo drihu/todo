@@ -22,29 +22,19 @@ const COLORS = [
 ];
 
 let previousTaskId = 0;
-let previousProjectId = 1;
+let previousProjectId = 0;
 
 function App() {
   const [isCreateFormActive, setIsCreateFormActive] = useState(false);
   const [areCompletedTasksActive, setAreCompletedTasksActive] = useState(false);
   const [isCreateProjectShown, setIsCreateProjectShown] = useState(false);
   const [areProjectsShown, setAreProjectsShown] = useState(false);
-  const [activeProjectId, setActiveProjectId] = useState(1);
+  const [activeProjectId, setActiveProjectId] = useState(null);
   const [tasks, setTasks] = useState([]);
-  const [projects, setProjects] = useState([
-    {
-      id: activeProjectId,
-      name: "Default",
-    },
-  ]);
+  const [projects, setProjects] = useState([]);
 
   const createTask = (event) => {
     event.preventDefault();
-    // if there are no project, disable task creation
-    if (activeProjectId === null) {
-      alert("You should create a project first");
-      return;
-    }
     const input = event.target.elements["input"];
     if (input.value.length < 3) {
       alert("The task should be at least 3 characters long");
@@ -133,7 +123,11 @@ function App() {
       <Header />
       <div className="app__container container">
         <aside className="app__aside">
-          <IconButton value="Inbox" icon={inbox} />
+          <IconButton
+            value="Inbox"
+            icon={inbox}
+            onClick={() => setActiveProjectId(null)}
+          />
           <IconButton
             value="Projects"
             icon={areProjectsShown ? bottom : right}
@@ -166,7 +160,7 @@ function App() {
 
         <main className="app__main">
           <h1 className="main__title">
-            {activeProjectId === 1
+            {activeProjectId === null
               ? "Todos"
               : projects.find((project) => project.id === activeProjectId).name}
           </h1>
