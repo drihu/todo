@@ -35,6 +35,7 @@ function App() {
 
   const createTask = (event) => {
     event.preventDefault();
+    // if there are no project, disable task creation
     if (activeProjectId === null) {
       alert("You should create a project first");
       return;
