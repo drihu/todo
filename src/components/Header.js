@@ -4,7 +4,9 @@ import logo from "../images/todoisnt-logo.png";
 export default function Header() {
   return (
     <header className="header">
-      <img src={logo} className="header__logo" alt="logo" />
+      <div className="container">
+        <img src={logo} className="header__logo" alt="logo" />
+      </div>
     </header>
   );
 }
