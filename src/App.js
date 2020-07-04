@@ -13,12 +13,12 @@ import "./index.css";
 import "./App.css";
 
 const COLORS = [
-  '#1A202C',
-  '#68D391',
-  '#F6E05E',
-  '#B04632',
-  '#CD5A90',
-  '#0079BF',
+  "#1A202C",
+  "#68D391",
+  "#F6E05E",
+  "#B04632",
+  "#CD5A90",
+  "#0079BF",
 ];
 
 let previousTaskId = 0;
@@ -29,14 +29,16 @@ function App() {
   const [areCompletedTasksActive, setAreCompletedTasksActive] = useState(false);
   const [isCreateProjectShown, setIsCreateProjectShown] = useState(false);
   const [areProjectsShown, setAreProjectsShown] = useState(false);
+  const [activeProjectId, setActiveProjectId] = useState(null);
   const [tasks, setTasks] = useState([]);
-  const [projects, setProjects] = useState([
-    { id: 1, name: "hello" },
-    { id: 2, name: "world" },
-  ]);
+  const [projects, setProjects] = useState([]);
 
   const createTask = (event) => {
     event.preventDefault();
+    if (activeProjectId === null) {
+      alert("You should create a project first");
+      return;
+    }
     const input = event.target.elements["input"];
     if (input.value.length < 3) {
       alert("The task should be at least 3 characters long");
@@ -46,6 +48,7 @@ function App() {
       id: ++previousTaskId,
       name: input.value,
       completed: false,
+      projectId: activeProjectId,
     };
     setTasks([...tasks, newTask]);
     input.value = "";
@@ -115,8 +118,9 @@ function App() {
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
     };
     setProjects([...projects, newProject]);
+    setActiveProjectId(previousProjectId);
     input.value = "";
-  }
+  };
 
   return (
     <div className="app">
@@ -132,16 +136,18 @@ function App() {
           {areProjectsShown && (
             <>
               {projects.map((project) => (
-                <Project project={project} key={project.id} />
+                <Project
+                  project={project}
+                  key={project.id}
+                  onClick={() => setActiveProjectId(project.id)}
+                />
               ))}
               {isCreateProjectShown ? (
-                <div style={{ paddingLeft: '20px' }}>
-                  <CreateForm
-                    onCreate={createProject}
-                    onCancel={() => setIsCreateProjectShown(false)}
-                    placeholder="Project name"
-                  />
-                </div>
+                <CreateForm
+                  onCreate={createProject}
+                  onCancel={() => setIsCreateProjectShown(false)}
+                  placeholder="Project name"
+                />
               ) : (
                 <PlusButton
                   value="Create project"
@@ -157,6 +163,7 @@ function App() {
 
           <section className="main__tasks">
             {tasks
+              .filter((task) => task.projectId === activeProjectId)
               .filter((task) => !task.completed)
               .map((task) => (
                 <Task
@@ -192,6 +199,7 @@ function App() {
             />
             {areCompletedTasksActive &&
               tasks
+                .filter((task) => task.projectId === activeProjectId)
                 .filter((task) => task.completed)
                 .map((task) => (
                   <Task
