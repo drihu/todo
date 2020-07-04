@@ -8,7 +8,7 @@ import PlusButton from "./components/PlusButton";
 import Project from "./components/Project";
 import inbox from "./images/icons/inbox.svg";
 import right from "./images/icons/checvron-right.svg";
-import bottom from './images/icons/arrow-bottom.svg';
+import bottom from "./images/icons/arrow-bottom.svg";
 import "./index.css";
 import "./App.css";
 
@@ -106,12 +106,14 @@ function App() {
             icon={areProjectsShown ? bottom : right}
             onClick={() => setAreProjectsShown(!areProjectsShown)}
           />
-          {areProjectsShown
-            ? projects.map((project) => (
+          {areProjectsShown && (
+            <>
+              {projects.map((project) => (
                 <Project project={project} key={project.id} />
-              ))
-            : null}
-          <PlusButton value="Create project" />
+              ))}
+              <PlusButton value="Create project" />
+            </>
+          )}
         </aside>
 
         <main className="app__main">
