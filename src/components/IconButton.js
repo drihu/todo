@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import "./IconButton.css";
 
 export default function IconButton({ icon, value, onClick }) {
   return (

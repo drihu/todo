@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UpdateForm from "./UpdateForm";
 import checkbox from "../images/icons/checkbox.svg";
 import checkedCheckbox from "../images/icons/checkbox-checked.svg";
+import "./Task.css";
 
 export default function Task({ task, onCheck, onUpdate, onDelete }) {
   const [image, setImage] = useState(checkbox);
@@ -22,7 +23,7 @@ export default function Task({ task, onCheck, onUpdate, onDelete }) {
   const onTaskUpdate = (event) => {
     onUpdate(event);
     setIsUpdateFormActive(false);
-  }
+  };
 
   return (
     <article className={`task ${task.completed ? "task--completed" : ""}`}>

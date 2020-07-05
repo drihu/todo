@@ -1,0 +1,25 @@
+.icon-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 20px;
+  background: #ffffff;
+  border: 0;
+  border-radius: 4px;
+  color: #000000;
+  font-family: "Lato";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.icon-button:hover {
+  background: #edf2f7;
+}
+.icon-button__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+}

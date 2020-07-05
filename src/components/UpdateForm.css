@@ -1,0 +1,51 @@
+.update-form {
+  width: 100%;
+}
+.update-form__input {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 4px 8px;
+  background: #fffdfd;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-family: "Lato";
+  font-size: 16px;
+  line-height: 24px;
+}
+.update-form__buttons {
+  position: relative;
+  display: flex;
+}
+.update-form__update-button {
+  padding: 5px 15px;
+  margin-right: 15px;
+  background: #2d3748;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: "Lato";
+  font-size: 16px;
+  line-height: 24px;
+}
+.update-form__cancel-button {
+  padding: 5px 15px;
+  margin-right: 15px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  color: #000000;
+  font-family: "Lato";
+  font-size: 16px;
+  line-height: 24px;
+}
+.update-form__delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 15px 3px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-family: "Lato";
+}

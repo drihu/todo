@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import "./CreateForm.css";
 
 export default function CreateForm({ onCreate, onCancel, placeholder }) {
   return (

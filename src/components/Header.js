@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 import logo from "../images/todoisnt-logo.png";
+import "./Header.css";
 
 export default function Header() {
   return (

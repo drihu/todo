@@ -1,0 +1,12 @@
+.action-button {
+  align-self: flex-end;
+  margin-bottom: 15px;
+  padding: 8px 15px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-family: "Lato";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18px;
+}

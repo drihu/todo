@@ -1,7 +1,14 @@
-import React from 'react';
-import trash from '../images/icons/trash.svg';
+import React from "react";
+import trash from "../images/icons/trash.svg";
+import "./UpdateForm.css";
 
-export default function UpdateForm({ onUpdate, onCancel, onDelete, value, placeholder }) {
+export default function UpdateForm({
+  onUpdate,
+  onCancel,
+  onDelete,
+  value,
+  placeholder,
+}) {
   return (
     <form onSubmit={onUpdate} className="update-form" noValidate>
       <input

@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 import plus from "../images/icons/plus.svg";
+import "./PlusButton.css";
 
 export default function PlusButton({ value, onClick }) {
   return (
